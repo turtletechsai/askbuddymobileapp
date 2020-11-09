@@ -52,30 +52,35 @@ class _FeedState extends State<Feed> {
                 case "feed_filter":
                   widgets.add(Container(
                       child: SimpleAccountMenu(
-                        data: datum.data,
+                    data: datum.data,
 //                        strings: ['Recent Activity', 'Old Posts', 'Most Popular'],
-                        iconColor: Colors.white,
-                        onChange: (index) {},
-                      )));
+                    iconColor: Colors.white,
+                    onChange: (index) {},
+                  )));
                   break;
                 case "feed_item":
-
-                  widgets.add(PostContainer(
-                    userName: 'Shrijeet Punewar',
-                    lastSeen: '1 hr ago',
-                    userImgUrl:
-                    'https://pbs.twimg.com/profile_images/1059376736083820544/VJcr_Jip.jpg',
-                    list: [
-                      PostText(
-                        text:
-                        'Hey i found this question paper of last year Might help you guys',
-                      ),
-                      PostPhoto(
-                        url:
-                        'https://c.files.bbci.co.uk/14824/production/_95640048_a2c8259e-a5f2-45fa-bcaa-16111d660c7e.jpg',
-                      )
-                    ],
-                  ));
+                  widgets.add(
+                      Column(
+                      children: List.generate(datum.data.length, (index) {
+                    return PostContainer(
+                      userName: datum.data[index].author,
+                      lastSeen: datum.data[index].timeString,
+                      list: [
+                        PostText(
+                          text:
+                          datum.data[index].text,
+                        ),
+                        datum.data[index].imageUrl == null ? Container() :PostPhoto(
+                          url:datum.data[index].imageUrl,
+                        )
+                      ],
+                      userImgUrl:
+                          'https://pbs.twimg.com/profile_images/1059376736083820544/VJcr_Jip.jpg',
+                      likes: datum.data[index].totalLikes.toString(),
+                      comments: datum.data[index].totalComments.toString(),
+                      isBookmarked: datum.data[index].isBookmarked,
+                    );
+                  })));
                   break;
                 default:
                   break;

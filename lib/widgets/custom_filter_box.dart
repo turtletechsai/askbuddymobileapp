@@ -99,32 +99,39 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
   OverlayEntry _overlayEntryBuilder() {
     return OverlayEntry(
       builder: (context) {
-        return Positioned(
-          top: buttonPosition.dy + buttonSize.height - 20,
-          left: 20,
-          width: MediaQuery.of(context).size.width-223,
-          child: Material(
-            color: Colors.transparent,
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Container(
-                    height: widget.data.length * buttonSize.height - 85,
-                    decoration: kBoxDecoration,
-                    child: Theme(
-                      data: ThemeData(
-                        iconTheme: IconThemeData(
-                          color: widget.iconColor,
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(widget.data.length, (index) {
-                          return GestureDetector(
-                            onTap: () {
+        return Stack(
+          children: [
+            GestureDetector(child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.transparent,
+            ),onTap: closeMenu),
+            Positioned(
+              top: buttonPosition.dy + buttonSize.height - 20,
+              left: 20,
+              width: MediaQuery.of(context).size.width-223,
+              child: Material(
+                color: Colors.transparent,
+                child: Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Container(
+                        height: widget.data.length * buttonSize.height - 85,
+                        decoration: kBoxDecoration,
+                        child: Theme(
+                          data: ThemeData(
+                            iconTheme: IconThemeData(
+                              color: widget.iconColor,
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List.generate(widget.data.length, (index) {
+                              return GestureDetector(
+                                onTap: () {
 
-                              selectedFilterIndex = widget.data[index].display;
+                                  selectedFilterIndex = widget.data[index].display;
 //                              if(index == 0){
 //                                selectedFilterIndex = 'Recent Activity';
 //                              }else if(index == 1){
@@ -132,25 +139,27 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
 //                              }else{
 //                                selectedFilterIndex = 'Most Popular';
 //                              }
-                              setState(() {
+                                  setState(() {
 
-                              });
-                              closeMenu();
-                            },
-                            child: Container(
-                              width: buttonSize.width,
-                              height: buttonSize.height - 30,
-                              child: Center(child: Text(widget.data[index].display)),
-                            ),
-                          );
-                        }),
+                                  });
+                                  closeMenu();
+                                },
+                                child: Container(
+                                  width: buttonSize.width,
+                                  height: buttonSize.height - 30,
+                                  child: Center(child: Text(widget.data[index].display)),
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         );
       },
     );

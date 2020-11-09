@@ -27,6 +27,7 @@ PostText({this.text});
       child: Text(
         text,
         style: TextStyle(fontWeight: FontWeight.w400),
+        textAlign: TextAlign.left,
       ),
     );
   }
