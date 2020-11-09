@@ -10,7 +10,7 @@ class NetworkRepository with ChangeNotifier {
   NetworkRepository({@required this.apiClient}) : assert(apiClient != null);
 
   Future<GetFeedPageResponseData> getFeedData() async {
-    Result apiResult = await apiClient.getExploreDataAPI();
+    Result apiResult = await apiClient.getFeedDataAPI();
     if (apiResult is Success) return apiResult.data;
     if (apiResult is Error) throw apiResult.error;
   }

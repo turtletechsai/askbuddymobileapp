@@ -37,8 +37,11 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
 
   @override
   void initState() {
+
+    print(widget.data.length);
     _borderRadius = widget.borderRadius ?? BorderRadius.circular(4);
-    selectedFilterIndex = widget.data[0].text;
+    print(widget.data[0].display);
+    selectedFilterIndex = widget.data[0].display;
     _key = LabeledGlobalKey("button_icon");
     super.initState();
   }
@@ -121,7 +124,7 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
                           return GestureDetector(
                             onTap: () {
 
-                              selectedFilterIndex = widget.data[index].text;
+                              selectedFilterIndex = widget.data[index].display;
 //                              if(index == 0){
 //                                selectedFilterIndex = 'Recent Activity';
 //                              }else if(index == 1){
@@ -137,7 +140,7 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
                             child: Container(
                               width: buttonSize.width,
                               height: buttonSize.height - 30,
-                              child: Center(child: Text(widget.data[index].text)),
+                              child: Center(child: Text(widget.data[index].display)),
                             ),
                           );
                         }),

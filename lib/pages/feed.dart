@@ -59,6 +59,23 @@ class _FeedState extends State<Feed> {
                       )));
                   break;
                 case "feed_item":
+
+                  widgets.add(PostContainer(
+                    userName: 'Shrijeet Punewar',
+                    lastSeen: '1 hr ago',
+                    userImgUrl:
+                    'https://pbs.twimg.com/profile_images/1059376736083820544/VJcr_Jip.jpg',
+                    list: [
+                      PostText(
+                        text:
+                        'Hey i found this question paper of last year Might help you guys',
+                      ),
+                      PostPhoto(
+                        url:
+                        'https://c.files.bbci.co.uk/14824/production/_95640048_a2c8259e-a5f2-45fa-bcaa-16111d660c7e.jpg',
+                      )
+                    ],
+                  ));
                   break;
                 default:
                   break;
@@ -67,26 +84,7 @@ class _FeedState extends State<Feed> {
 
             return ListView(
               padding: EdgeInsets.symmetric(vertical: 20),
-              children: [
-                // FilterSelection(),
-
-                PostContainer(
-                  userName: 'Shrijeet Punewar',
-                  lastSeen: '1 hr ago',
-                  userImgUrl:
-                      'https://pbs.twimg.com/profile_images/1059376736083820544/VJcr_Jip.jpg',
-                  list: [
-                    PostText(
-                      text:
-                          'Hey i found this question paper of last year Might help you guys',
-                    ),
-                    PostPhoto(
-                      url:
-                          'https://c.files.bbci.co.uk/14824/production/_95640048_a2c8259e-a5f2-45fa-bcaa-16111d660c7e.jpg',
-                    )
-                  ],
-                )
-              ],
+              children: widgets,
             );
           } else {
             return Container();
