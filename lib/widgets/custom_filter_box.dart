@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:studygroups/constants.dart';
+import 'package:studygroups/models/response.dart';
 
 
 class SimpleAccountMenu extends StatefulWidget {
-  final List<String> strings;
+  final List<FeedDatumDatum> data;
   final BorderRadius borderRadius;
   final Color backgroundColor;
   final Color iconColor;
@@ -12,12 +13,11 @@ class SimpleAccountMenu extends StatefulWidget {
 
   const SimpleAccountMenu({
     Key key,
-    this.strings,
     this.borderRadius,
     this.backgroundColor = const Color(0xFFF67C0B9),
     this.iconColor = Colors.black,
-    this.onChange,
-  })  : assert(strings != null),
+    this.onChange, this.data,
+  })  : assert(data != null),
         super(key: key);
   @override
   _SimpleAccountMenuState createState() => _SimpleAccountMenuState();
@@ -25,7 +25,8 @@ class SimpleAccountMenu extends StatefulWidget {
 
 class _SimpleAccountMenuState extends State<SimpleAccountMenu>
     with SingleTickerProviderStateMixin {
-  String selectedFilterIndex = 'Recent Activity';
+
+  String selectedFilterIndex = "";
 
   GlobalKey _key;
   bool isMenuOpen = false;
@@ -37,6 +38,7 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
   @override
   void initState() {
     _borderRadius = widget.borderRadius ?? BorderRadius.circular(4);
+    selectedFilterIndex = widget.data[0].text;
     _key = LabeledGlobalKey("button_icon");
     super.initState();
   }
@@ -105,7 +107,7 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: Container(
-                    height: widget.strings.length * buttonSize.height - 85,
+                    height: widget.data.length * buttonSize.height - 85,
                     decoration: kBoxDecoration,
                     child: Theme(
                       data: ThemeData(
@@ -115,16 +117,18 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: List.generate(widget.strings.length, (index) {
+                        children: List.generate(widget.data.length, (index) {
                           return GestureDetector(
                             onTap: () {
-                              if(index == 0){
-                                selectedFilterIndex = 'Recent Activity';
-                              }else if(index == 1){
-                                selectedFilterIndex = 'Old Posts';
-                              }else{
-                                selectedFilterIndex = 'Most Popular';
-                              }
+
+                              selectedFilterIndex = widget.data[index].text;
+//                              if(index == 0){
+//                                selectedFilterIndex = 'Recent Activity';
+//                              }else if(index == 1){
+//                                selectedFilterIndex = 'Old Posts';
+//                              }else{
+//                                selectedFilterIndex = 'Most Popular';
+//                              }
                               setState(() {
 
                               });
@@ -133,7 +137,7 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
                             child: Container(
                               width: buttonSize.width,
                               height: buttonSize.height - 30,
-                              child: Center(child: Text(widget.strings[index])),
+                              child: Center(child: Text(widget.data[index].text)),
                             ),
                           );
                         }),
