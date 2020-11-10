@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studygroups/Widgets/share_thought_container.dart';
 import 'package:studygroups/Widgets/post_container.dart';
+import 'package:studygroups/constants.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/custom_filter_box.dart';
 import 'package:studygroups/widgets/post_content_widgets.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -92,7 +94,31 @@ class _FeedState extends State<Feed> {
               children: widgets,
             );
           } else {
-            return Container();
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[200],
+              highlightColor: Colors.grey[350],
+              child: ListView(
+                children: [
+                  Container(
+                    decoration: kBoxDecoration,
+                    margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+                    child: ListTile(),
+                  ),
+                  Container(
+                    height: 40,
+                    margin: EdgeInsets.fromLTRB(20, 5, MediaQuery.of(context).size.width-190, 10),
+                    decoration: kBoxDecoration.copyWith(borderRadius: BorderRadius.circular(30)),
+                  ),
+                  Container(
+                    decoration: kBoxDecoration,
+                    margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+                    height: 300,
+                  )
+                ],
+              ),
+            );
           }
         });
   }
