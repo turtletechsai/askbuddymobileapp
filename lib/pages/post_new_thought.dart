@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:studygroups/constants.dart';
 import 'package:studygroups/widgets/custom_back_button.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class PostNewThought extends StatefulWidget {
   @override
@@ -8,8 +10,35 @@ class PostNewThought extends StatefulWidget {
 }
 
 class _PostNewThoughtState extends State<PostNewThought> {
+  File _image;
+  final picker = ImagePicker();
   String text = '0';
   final TextEditingController controller = TextEditingController();
+
+
+  Future getImageCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future getImageGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +115,8 @@ class _PostNewThoughtState extends State<PostNewThought> {
                           Container(
                             child: Row(
                               children: [
-                                IconButton(icon: Icon(Icons.camera_alt_outlined), onPressed: null),
-                                IconButton(icon: Icon(Icons.photo), onPressed: null),
+                                IconButton(icon: Icon(Icons.camera_alt_outlined), onPressed: getImageCamera),
+                                IconButton(icon: Icon(Icons.photo), onPressed: getImageGallery),
                                 IconButton(icon: Icon(Icons.attach_file), onPressed: null),
                               ],
                             ),
@@ -103,7 +132,17 @@ class _PostNewThoughtState extends State<PostNewThought> {
                     )
                   ],
                 ),
-              )
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.height * 0.2,
+                child: _image == null
+                    ? Container()
+                    : ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                    child: Image.file(_image,fit: BoxFit.cover)),
+              ),
             ],
           ),
         ),
