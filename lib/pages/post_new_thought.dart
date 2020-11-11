@@ -3,6 +3,7 @@ import 'package:studygroups/constants.dart';
 import 'package:studygroups/widgets/custom_back_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:video_player/video_player.dart';
 
 class PostNewThought extends StatefulWidget {
   @override
@@ -11,6 +12,10 @@ class PostNewThought extends StatefulWidget {
 
 class _PostNewThoughtState extends State<PostNewThought> {
   File _image;
+  File _video;
+  // File _cameraVideo;
+  // VideoPlayerController _cameraVideoPlayerController;
+  VideoPlayerController _videoPlayerController;
   final picker = ImagePicker();
   String text = '0';
   final TextEditingController controller = TextEditingController();
@@ -40,6 +45,36 @@ class _PostNewThoughtState extends State<PostNewThought> {
     });
   }
 
+  _pickVideo() async {
+    PickedFile pickedFile = await picker.getVideo(source: ImageSource.gallery);
+
+    _video = File(pickedFile.path);
+
+    _videoPlayerController = VideoPlayerController.file(_video)
+      ..initialize().then((_) {
+        setState(() {});
+        _videoPlayerController.play();
+      });
+  }
+
+  // _pickVideoFromCamera() async {
+  //   PickedFile pickedFile = await picker.getVideo(source: ImageSource.camera);
+  //
+  //   _cameraVideo = File(pickedFile.path);
+  //
+  //   _cameraVideoPlayerController = VideoPlayerController.file(_cameraVideo)
+  //     ..initialize().then((_) {
+  //       setState(() {});
+  //       _cameraVideoPlayerController.play();
+  //     });
+  // }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +101,7 @@ class _PostNewThoughtState extends State<PostNewThought> {
               ),
               SizedBox(height: 28),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
                 padding: EdgeInsets.fromLTRB(8, 8, 0, 8),
                 decoration: kBoxDecoration,
                 child: Column(
@@ -88,7 +123,8 @@ class _PostNewThoughtState extends State<PostNewThought> {
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: TextField(
                         controller: controller,
-                        maxLines: 6,
+                        maxLines: 20,
+                        minLines: 2,
                         // maxLength: 1024,
                         autofocus: false,
                         decoration: InputDecoration(
@@ -109,6 +145,30 @@ class _PostNewThoughtState extends State<PostNewThought> {
                       ),
                     ),
                     Container(
+                      margin: EdgeInsets.only(right: 10,bottom: 10),
+                      child: _image == null
+                          ? Container()
+                          : ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.file(_image,fit: BoxFit.cover)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 10,bottom: 10),
+                      child: Column(
+                        children: <Widget>[
+                          if (_video != null)
+                            _videoPlayerController.value.initialized
+                                ? AspectRatio(
+                              aspectRatio: _videoPlayerController.value.aspectRatio * 1,
+                              child: VideoPlayer(_videoPlayerController),
+                            )
+                                : Container(
+                              height: 200,
+                            )
+                        ],
+                      ),
+                    ),
+                    Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -117,7 +177,7 @@ class _PostNewThoughtState extends State<PostNewThought> {
                               children: [
                                 IconButton(icon: Icon(Icons.camera_alt_outlined), onPressed: getImageCamera),
                                 IconButton(icon: Icon(Icons.photo), onPressed: getImageGallery),
-                                IconButton(icon: Icon(Icons.attach_file), onPressed: null),
+                                IconButton(icon: Icon(Icons.attach_file), onPressed: _pickVideo),
                               ],
                             ),
                           ),
@@ -132,16 +192,6 @@ class _PostNewThoughtState extends State<PostNewThought> {
                     )
                   ],
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.height * 0.2,
-                child: _image == null
-                    ? Container()
-                    : ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                    child: Image.file(_image,fit: BoxFit.cover)),
               ),
             ],
           ),
