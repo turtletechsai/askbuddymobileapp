@@ -291,3 +291,45 @@ class PostTag {
   };
 }
 
+
+
+class LikePostResponseBody {
+  LikePostResponseBody({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  Data data;
+
+  factory LikePostResponseBody.fromJson(Map<String, dynamic> json) => LikePostResponseBody(
+    meta: Meta.fromJson(json["meta"]),
+    data: Data.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": data.toJson(),
+  };
+}
+
+class Data {
+  Data({
+    this.insertedCount,
+    this.insertedId,
+  });
+
+  int insertedCount;
+  int insertedId;
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    insertedCount: json["insertedCount"],
+    insertedId: json["insertedId"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "insertedCount": insertedCount,
+    "insertedId": insertedId,
+  };
+}
+

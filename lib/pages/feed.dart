@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studygroups/Widgets/share_thought_container.dart';
-import 'package:studygroups/Widgets/post_container.dart';
 import 'package:studygroups/constants.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/custom_filter_box.dart';
+import 'package:studygroups/widgets/post_container.dart';
 import 'package:studygroups/widgets/post_content_widgets.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -65,6 +65,7 @@ class _FeedState extends State<Feed> {
                       Column(
                       children: List.generate(datum.data.length, (index) {
                     return PostContainer(
+                      id: datum.data[index].id,
                       userName: datum.data[index].author,
                       lastSeen: datum.data[index].timeString,
                       list: [

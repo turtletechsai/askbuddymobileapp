@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studygroups/models/request.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/services/api/networkmanager/auth_networkmanager.dart';
 
@@ -18,6 +19,14 @@ class NetworkRepository with ChangeNotifier {
 
   Future<GetExplorePageResponseData> getExploreData() async {
     Result apiResult = await apiClient.getExploreDataAPI();
+    if (apiResult is Success) return apiResult.data;
+    if (apiResult is Error) throw apiResult.error;
+  }
+
+
+
+  Future<LikePostResponseBody> likePost(LikePostRequestBody requestBody) async {
+    Result apiResult = await apiClient.likePostAPI(requestBody);
     if (apiResult is Success) return apiResult.data;
     if (apiResult is Error) throw apiResult.error;
   }

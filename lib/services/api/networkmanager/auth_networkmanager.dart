@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:studygroups/models/request.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/services/api/endpoints/auth_endpoint.dart';
 import 'package:studygroups/services/storage/device_store.dart';
@@ -48,6 +49,24 @@ class NetworkManager {
       GetExplorePageResponseData.fromJson(json.decode(result.data.toString()));
 
       return Success<GetExplorePageResponseData>(getExplorePageResponseData);
+    }
+    return result;
+  }
+
+  @override
+  Future<Result> likePostAPI(LikePostRequestBody requestBody) async {
+    AuthEndpoint endpoint = AuthEndpoints.likePost;
+    endpoint.replaceInPath(postid, requestBody.id.toString());
+
+    Result result = await _client.call(
+      endpoint,
+    );
+
+    if (result is Success) {
+      LikePostResponseBody likePostResponseBody =
+      LikePostResponseBody.fromJson(json.decode(result.data.toString()));
+
+      return Success<LikePostResponseBody>(likePostResponseBody);
     }
     return result;
   }
