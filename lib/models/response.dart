@@ -333,3 +333,42 @@ class Data {
   };
 }
 
+class BookmarkPostResponseBody {
+  BookmarkPostResponseBody({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  Data data;
+
+  factory BookmarkPostResponseBody.fromJson(Map<String, dynamic> json) => BookmarkPostResponseBody(
+    meta: Meta.fromJson(json["meta"]),
+    data: Data.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": data.toJson(),
+  };
+}
+
+class DataBookmark {
+  DataBookmark({
+    this.insertedId,
+    this.success,
+  });
+
+  int insertedId;
+  bool success;
+
+  factory DataBookmark.fromJson(Map<String, dynamic> json) => DataBookmark(
+    insertedId: json["inserted_id"],
+    success: json["success"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "inserted_id": insertedId,
+    "success": success,
+  };
+}

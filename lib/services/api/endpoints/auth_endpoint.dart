@@ -6,6 +6,7 @@ const String token = "{token}";
 
 const String postid = "{postid}";
 
+
 class AuthEndpoints {
   AuthEndpoints._();
 
@@ -16,9 +17,10 @@ class AuthEndpoints {
       AuthEndpoint("/v1/feed/explore", Method.get);
 
   static get likePost =>
-      AuthEndpoint("v1/feed/like-post/$postid?vote=1", Method.post);
+      AuthEndpoint("/v1/feed/like-post/$postid?vote=1", Method.post);
 
-
+  static get bookmarkPost =>
+      AuthEndpoint("/v1/feed/bookmark-post/$postid", Method.post);
 
 
 }

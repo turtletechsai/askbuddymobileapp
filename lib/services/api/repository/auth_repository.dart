@@ -31,5 +31,10 @@ class NetworkRepository with ChangeNotifier {
     if (apiResult is Error) throw apiResult.error;
   }
 
+  Future<BookmarkPostResponseBody> bookmarkPost(BookmarkPostRequestBody requestBody) async {
+    Result apiResult = await apiClient.bookmarkPostAPI(requestBody);
+    if (apiResult is Success) return apiResult.data;
+    if (apiResult is Error) throw apiResult.error;
+  }
 
 }

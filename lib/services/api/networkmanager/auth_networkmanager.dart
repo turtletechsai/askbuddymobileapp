@@ -71,7 +71,23 @@ class NetworkManager {
     return result;
   }
 
+  @override
+  Future<Result> bookmarkPostAPI(BookmarkPostRequestBody requestBody) async {
+    AuthEndpoint endpoint = AuthEndpoints.bookmarkPost;
+    endpoint.replaceInPath(postid, requestBody.id.toString());
 
+    Result result = await _client.call(
+      endpoint,
+    );
+
+    if (result is Success) {
+      BookmarkPostResponseBody bookmarkPostResponseBody =
+      BookmarkPostResponseBody.fromJson(json.decode(result.data.toString()));
+
+      return Success<BookmarkPostResponseBody>(bookmarkPostResponseBody);
+    }
+    return result;
+  }
 
 
 
