@@ -20,6 +20,10 @@ const Color kOrange = Color(0xffffb64b);
 const Color kGrey = Colors.grey;
 Color kGreyLite = Colors.grey[400];
 const Color kBlue = Color(0xff029cf5);
+const Color kLiteWhite = Color(0xfff9f8f6);
+const Color kGreen = Color(0xff13ae80);
+const Color kLitePurple = Color(0xff9b9def);
+const Color kLiteRed = Color(0xfff8a6a5);
 
 TextStyle kPrimaryTextStyle = TextStyle(
   color: kMainThemeColor,

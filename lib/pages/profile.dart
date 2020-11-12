@@ -37,6 +37,9 @@ class _ProfileState extends State<Profile> {
                 ],
                 elevation: 3,
                 height: 38,
+                onPressed: (){
+                  Navigator.pushNamed(context, '/ViewAllGroups');
+                },
               )
             ],
           ),

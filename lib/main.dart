@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studygroups/pages/chat_screen.dart';
 import 'package:studygroups/pages/create_group.dart';
 import 'package:studygroups/pages/post_new_thought.dart';
+import 'package:studygroups/pages/view_all_groups.dart';
 import 'package:studygroups/services/api/networking.dart';
 import 'package:studygroups/services/api/networkmanager/auth_networkmanager.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
@@ -44,6 +46,8 @@ class _MyAppState extends State<MyApp> {
           '/': (context) => HomePage(),
           '/PostNewThought': (context) => PostNewThought(),
           '/CreateGroup': (context) => CreateGroup(),
+          '/ChatScreen' : (context) => ChatScreen(),
+          '/ViewAllGroups' : (context) => ViewAllGroups()
         },
         initialRoute: '/',
       ),

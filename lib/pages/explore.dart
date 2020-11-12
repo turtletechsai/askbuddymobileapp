@@ -120,6 +120,9 @@ class _ExploreState extends State<Explore> {
                         upperTitle1: datum.data[index].totalMembers,
                         upperTitle2: 'members',
                         textColor: datum.data[index].textColor,
+                        onTap: (){
+                          Navigator.pushNamed(context, '/ChatScreen');
+                        },
                       );
                     })
                   ),);
