@@ -40,3 +40,4 @@ class AuthEndpoint {
 }
 
 enum Method { post, get, put, delete }
+

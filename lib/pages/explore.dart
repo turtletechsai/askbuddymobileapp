@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studygroups/models/response.dart';
+import 'package:studygroups/pages/chat_screen.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/custom_gridview.dart';
 import 'package:studygroups/widgets/custom_text_button.dart';
@@ -8,6 +9,8 @@ import 'package:studygroups/constants.dart';
 import 'package:studygroups/widgets/explore_custom_gridview_container.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Explore extends StatefulWidget {
   @override
@@ -121,7 +124,7 @@ class _ExploreState extends State<Explore> {
                         upperTitle2: 'members',
                         textColor: datum.data[index].textColor,
                         onTap: (){
-                          Navigator.pushNamed(context, '/ChatScreen');
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(channel: IOWebSocketChannel.connect('ws://socket.biviolin.com'),)));
                         },
                       );
                     })

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:studygroups/constants.dart';
 import 'package:studygroups/widgets/chat_screen_rounded_container.dart';
 import 'package:studygroups/widgets/message_bubble.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ChatScreen extends StatefulWidget {
+  final WebSocketChannel channel;
+  ChatScreen({this.channel});
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -12,7 +16,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool isMe;
   String message;
   bool showBottomOptions = false;
-  final messageTextController = TextEditingController();
+  TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -71,7 +75,18 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             )),
             Expanded(
-              child: MessageStream(),
+              child: StreamBuilder(
+                stream: widget.channel.stream,
+                builder: (context, snapshot) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24.0),
+                    child: Text(snapshot.hasData ? '${snapshot.data}' : 'o'),
+                  );
+                },
+                initialData: {
+
+                },
+              )
             ),
             Container(
               decoration: BoxDecoration(
@@ -111,7 +126,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           SizedBox(width: 10),
                           Expanded(
                             child: TextField(
-                              controller: messageTextController,
+                              controller: _controller,
                               onChanged: (value) {
                                 message = value;
                               },
@@ -126,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 Icons.send,
                                 color: Colors.green,
                               ),
-                              onPressed: () {})
+                              onPressed: _sendMessage)
                         ],
                       ),
                     ),
@@ -196,6 +211,18 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
+  void _sendMessage() {
+    if (_controller.text.isNotEmpty) {
+      widget.channel.sink.add(_controller.text);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.channel.sink.close();
+    super.dispose();
+  }
 }
 
 class MessageStream extends StatelessWidget {
@@ -222,4 +249,6 @@ class MessageStream extends StatelessWidget {
     );
   }
 }
+
+
 
