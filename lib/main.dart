@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studygroups/pages/chat_screen.dart';
 import 'package:studygroups/pages/create_group.dart';
+import 'package:studygroups/pages/onboarding/hello.dart';
+import 'package:studygroups/pages/onboarding/learn_search.dart';
+import 'package:studygroups/pages/onboarding/select_class.dart';
 import 'package:studygroups/pages/post_new_thought.dart';
 import 'package:studygroups/pages/view_all_groups.dart';
 import 'package:studygroups/services/api/networking.dart';
@@ -47,9 +50,12 @@ class _MyAppState extends State<MyApp> {
           '/PostNewThought': (context) => PostNewThought(),
           '/CreateGroup': (context) => CreateGroup(),
           '/ChatScreen' : (context) => ChatScreen(),
-          '/ViewAllGroups' : (context) => ViewAllGroups()
+          '/ViewAllGroups' : (context) => ViewAllGroups(),
+          '/Hello' : (context) => Hello(),
+          '/SelectClass' : (context) => SelectClass(),
+          '/LearnSearch' : (context) => LearnSearch()
         },
-        initialRoute: '/',
+        initialRoute: '/Hello',
       ),
     );
   }

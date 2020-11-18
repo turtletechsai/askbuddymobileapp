@@ -9,14 +9,26 @@ class ChatScreen extends StatefulWidget {
   ChatScreen({this.channel});
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _ChatScreenState createState() => _ChatScreenState(channel: channel);
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  WebSocketChannel channel;
   bool isMe;
   String message;
   bool showBottomOptions = false;
+  List<String> data = [];
   TextEditingController _controller = TextEditingController();
+
+  _ChatScreenState({this.channel}){
+    channel.stream.listen((data) {
+      print(data);
+      setState(() {
+        this.data.add(data);
+      });
+    });
+  }
+
 
   @override
   void initState() {
@@ -75,18 +87,22 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             )),
             Expanded(
-              child: StreamBuilder(
-                stream: widget.channel.stream,
-                builder: (context, snapshot) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0),
-                    child: Text(snapshot.hasData ? '${snapshot.data}' : 'o'),
-                  );
-                },
-                initialData: {
-
-                },
-              )
+              // child: StreamBuilder(
+              //   stream: widget.channel.stream,
+              //   builder: (context, snapshot) {
+              //     return Padding(
+              //       padding: const EdgeInsets.symmetric(vertical: 24.0),
+              //       child: Text(snapshot.hasData ? '${snapshot.data}' : 'snapshot data is empty'),
+              //     );
+              //   },
+              //   initialData: {
+              //
+              //   },
+              // )
+              child: ListView.builder(itemCount: data.length,
+              itemBuilder: (context,index){
+                return Text(data[index].toString());
+              },),
             ),
             Container(
               decoration: BoxDecoration(
@@ -214,7 +230,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
-      widget.channel.sink.add(_controller.text);
+      widget.channel.stream;
     }
   }
 

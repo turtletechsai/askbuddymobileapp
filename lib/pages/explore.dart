@@ -124,7 +124,7 @@ class _ExploreState extends State<Explore> {
                         upperTitle2: 'members',
                         textColor: datum.data[index].textColor,
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(channel: IOWebSocketChannel.connect('ws://socket.biviolin.com'),)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(channel: IOWebSocketChannel.connect('wss://socket.biviolin.com/'),)));
                         },
                       );
                     })
