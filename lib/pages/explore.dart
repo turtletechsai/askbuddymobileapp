@@ -116,7 +116,8 @@ class _ExploreState extends State<Explore> {
             for (GetExplorePageResponseDataDatum datum in data.data.data){
               switch(datum.type){
                 case 'EXPLORE_GROUP_TILES' :
-                  widgets.add(CustomGridView(
+                  widgets.add(
+                    CustomGridView(
                     gridTitle: datum.title,
                     list: List.generate(datum.data.length, (index) {
                       return ExploreGridViewContainer(

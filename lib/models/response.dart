@@ -468,7 +468,7 @@ class GetOnboardingDataDatum {
   String title;
   String submitWidgetEndpoint;
   String submitKey;
-  List<DatumDatum> data;
+  List<GetOnboardingDataDatumDatum> data;
 
   factory GetOnboardingDataDatum.fromJson(Map<String, dynamic> json) => GetOnboardingDataDatum(
     name: json["name"],
@@ -477,7 +477,7 @@ class GetOnboardingDataDatum {
     title: json["title"],
     submitWidgetEndpoint: json["submit_widget_endpoint"],
     submitKey: json["submit_key"],
-    data: List<DatumDatum>.from(json["data"].map((x) => DatumDatum.fromJson(x))),
+    data: List<GetOnboardingDataDatumDatum>.from(json["data"].map((x) => GetOnboardingDataDatumDatum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

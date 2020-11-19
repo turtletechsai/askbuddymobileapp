@@ -53,109 +53,26 @@ class _SelectClassState extends State<SelectClass> {
               ),
             );
             widgets.add(
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SelectClassContainer(
-                            size: size,
-                            className: '5',
-                            onTap: () {
-                              selectedClass = 5;
-                              setState(() {});
-                            },
-                            bgColor: selectedClass == 5 ? Colors.green : null,
-                          ),
-                          SelectClassContainer(
-                              size: size,
-                              className: '6',
-                              onTap: () {
-                                selectedClass = 6;
-                                setState(() {});
-                              },
-                              bgColor:
-                                  selectedClass == 6 ? Colors.green : null),
-                          SelectClassContainer(
-                              size: size,
-                              className: '7',
-                              onTap: () {
-                                selectedClass = 7;
-                                setState(() {});
-                              },
-                              bgColor: selectedClass == 7 ? Colors.green : null)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SelectClassContainer(
-                            size: size,
-                            className: '8',
-                            onTap: () {
-                              selectedClass = 8;
-                              setState(() {});
-                            },
-                            bgColor: selectedClass == 8 ? Colors.green : null,
-                          ),
-                          SelectClassContainer(
-                              size: size,
-                              className: '9',
-                              onTap: () {
-                                selectedClass = 9;
-                                setState(() {});
-                              },
-                              bgColor:
-                                  selectedClass == 9 ? Colors.green : null),
-                          SelectClassContainer(
-                              size: size,
-                              className: '10',
-                              onTap: () {
-                                selectedClass = 10;
-                                setState(() {});
-                              },
-                              bgColor:
-                                  selectedClass == 10 ? Colors.green : null)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SelectClassContainer(
-                            size: size,
-                            className: '11',
-                            onTap: () {
-                              selectedClass = 11;
-                              setState(() {});
-                            },
-                            bgColor: selectedClass == 11 ? Colors.green : null,
-                          ),
-                          SelectClassContainer(
-                              size: size,
-                              className: '12',
-                              onTap: () {
-                                selectedClass = 12;
-                                setState(() {});
-                              },
-                              bgColor:
-                                  selectedClass == 12 ? Colors.green : null),
-                          Container(
-                            width: size * 0.24,
-                            height: size * 0.24,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+              Flexible(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  primary: false,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  childAspectRatio:1,
+                  children: List.generate(
+                      data.data.data[0].data.length, (index) => SelectClassContainer(
+                    size: size,
+                    className: data.data.data[0].data[index].code.toString(),
+                    onTap: () {
+                      selectedClass = data.data.data[0].data[index].code;
+                      setState(() {});
+                    },
+                    bgColor: selectedClass == data.data.data[0].data[index].code ? Colors.green : null,
+                  ),),
                 ),
               ),
             );
