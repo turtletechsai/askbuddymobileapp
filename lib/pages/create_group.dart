@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studygroups/models/response.dart';
+import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/custom_back_button.dart';
 import 'package:studygroups/constants.dart';
-import 'package:studygroups/widgets/subjectContainer.dart';
 import 'package:studygroups/widgets/custom_text_button.dart';
+import 'package:studygroups/widgets/subjectContainer.dart';
 
 class CreateGroup extends StatefulWidget {
   @override
@@ -13,6 +16,22 @@ class CreateGroup extends StatefulWidget {
 class _CreateGroupState extends State<CreateGroup> {
   var selectedSub = 'Physics';
   bool switchValue = true;
+  Future _future;
+
+  Future<GetSubjectsForStudyGroupsResponseBodyData>
+      getSubjectsForStudyGroupsData() async {
+    final adminAPI = Provider.of<NetworkRepository>(context, listen: false);
+    GetSubjectsForStudyGroupsResponseBodyData responseModel =
+        await adminAPI.getSubjectsForStudyGroups();
+    print(responseModel);
+    return responseModel;
+  }
+
+  @override
+  void initState() {
+    _future = getSubjectsForStudyGroupsData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,39 +43,39 @@ class _CreateGroupState extends State<CreateGroup> {
             children: [
               SizedBox(height: 40),
               CustomBackButton(
-                onPressed: (){
+                onPressed: () {
                   Navigator.pop(context);
                 },
                 color: kMainThemeColor,
-                icon: Icons.arrow_back,),
+                icon: Icons.arrow_back,
+              ),
               SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'New study group',
-                  style: kPrimaryTextStyle.copyWith(fontSize: 30,
-                      fontWeight: FontWeight.w500),
+                  style: kPrimaryTextStyle.copyWith(
+                      fontSize: 30, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(height: 60),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text('Name of your Group',style: kPrimaryTextStyle.copyWith(
-                  fontSize: 16,
-                  color: kBlack,
-                  fontWeight: FontWeight.w500
-                ),),
+                child: Text(
+                  'Name of your Group',
+                  style: kPrimaryTextStyle.copyWith(
+                      fontSize: 16, color: kBlack, fontWeight: FontWeight.w500),
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                decoration: kBoxDecoration.copyWith(borderRadius: BorderRadius.circular(20)),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration: kBoxDecoration.copyWith(
+                    borderRadius: BorderRadius.circular(20)),
                 child: TextField(
                   cursorColor: kMainThemeColor,
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide.none
-                    ),
+                    border: UnderlineInputBorder(borderSide: BorderSide.none),
                     hintText: 'eg: The Guardians of Galaxy',
                     hintStyle: kPrimaryTextStyle.copyWith(color: kGreyLite),
                   ),
@@ -67,84 +86,76 @@ class _CreateGroupState extends State<CreateGroup> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text('Pick your subject',style: kPrimaryTextStyle.copyWith(
-                    fontSize: 16,
-                    color: kBlack,
-                    fontWeight: FontWeight.w500
-                ),),
+                child: Text(
+                  'Pick your subject',
+                  style: kPrimaryTextStyle.copyWith(
+                      fontSize: 16, color: kBlack, fontWeight: FontWeight.w500),
+                ),
               ),
               SizedBox(
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                height: 120,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SubjectContainer(icon: Icons.add,
-                    containerColor: selectedSub == 'Maths' ? Colors.orange[100] : Colors.transparent,
-                    iconBgColor: Colors.orange,
-                    text: 'Maths',
-                    onTap: (){
-                      selectedSub = 'Maths';
-                      setState(() {
-                      });
-                    },),
-                    SubjectContainer(icon: Icons.local_fire_department,
-                      containerColor: selectedSub == 'Physics' ? Colors.pink[100] : Colors.transparent,
-                      iconBgColor: Colors.pink,
-                      text: 'Physics',
-                      onTap: (){
-                        selectedSub = 'Physics';
-                        setState(() {
-                        });
-                      },),
-                    SubjectContainer(icon: Icons.bookmark_border,
-                      containerColor: selectedSub == 'Chemistry' ? Colors.blue[100] : Colors.transparent,
-                      iconBgColor: Colors.blue,
-                      text: 'Chemistry',
-                      onTap: (){
-                        selectedSub = 'Chemistry';
-                        setState(() {
-                        });
-                      },),
-                    SubjectContainer(icon: Icons.share,
-                      containerColor: selectedSub == 'Biology' ? Colors.green[100] : Colors.transparent,
-                      iconBgColor: Colors.green,
-                      text: 'Biology',
-                      onTap: (){
-                        selectedSub = 'Biology';
-                        setState(() {
-                        });
-                      },),
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  height: 120,
+                  child: FutureBuilder(
+                    future: _future,
+                    builder: (context, data) {
+                      if (data.hasData) {
+                        List<Widget> widgets = List();
+
+                        for (GetSubjectsForStudyGroupsResponseBodyDataDatum datum
+                            in data.data.data) {
+                          widgets.add(
+                            Container(
+                              margin: EdgeInsets.only(right: 12),
+                              child: SubjectContainer(
+                                icon: datum.icon,
+                                containerColor: selectedSub == datum.display
+                                    ? Colors.pink[100]
+                                    : Colors.transparent,
+                                text: datum.display,
+                                onTap: () {
+                                  selectedSub = datum.display;
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          );
+                        }
+
+                        return ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          scrollDirection: Axis.horizontal,
+                          children: widgets,
+                        );
+                      }else{
+                        return Container();
+                      }
+                    },
+                  )),
               SizedBox(
                 height: 25,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text('Describe your group',style: kPrimaryTextStyle.copyWith(
-                    fontSize: 16,
-                    color: kBlack,
-                    fontWeight: FontWeight.w500
-                ),),
+                child: Text(
+                  'Describe your group',
+                  style: kPrimaryTextStyle.copyWith(
+                      fontSize: 16, color: kBlack, fontWeight: FontWeight.w500),
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                decoration: kBoxDecoration.copyWith(borderRadius: BorderRadius.circular(20)),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration: kBoxDecoration.copyWith(
+                    borderRadius: BorderRadius.circular(20)),
                 child: TextField(
                   cursorColor: kMainThemeColor,
                   decoration: InputDecoration(
-                      border: UnderlineInputBorder(
-                          borderSide: BorderSide.none
-                      ),
+                      border: UnderlineInputBorder(borderSide: BorderSide.none),
                       hintText: 'Tell us what is it about',
-                      hintStyle: kPrimaryTextStyle.copyWith(color: kGreyLite)
-                  ),
+                      hintStyle: kPrimaryTextStyle.copyWith(color: kGreyLite)),
                   maxLines: 4,
                 ),
               ),
@@ -158,25 +169,24 @@ class _CreateGroupState extends State<CreateGroup> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Privacy',style: kPrimaryTextStyle.copyWith(
-                              fontSize: 16,
-                              color: kBlack,
-                              fontWeight: FontWeight.w500
-                          ),),
+                          Text(
+                            'Privacy',
+                            style: kPrimaryTextStyle.copyWith(
+                                fontSize: 16,
+                                color: kBlack,
+                                fontWeight: FontWeight.w500),
+                          ),
                           Text('Public',
-                            style: kPrimaryTextStyle.copyWith(fontSize: 28,
-                                fontWeight: FontWeight.w500)
-                          )
+                              style: kPrimaryTextStyle.copyWith(
+                                  fontSize: 28, fontWeight: FontWeight.w500))
                         ],
                       ),
                     ),
                     CupertinoSwitch(
                       value: switchValue,
-                      onChanged: (value){
+                      onChanged: (value) {
                         switchValue = value;
-                        setState(() {
-
-                        });
+                        setState(() {});
                       },
                       activeColor: kMainThemeColor,
                     )
@@ -184,16 +194,14 @@ class _CreateGroupState extends State<CreateGroup> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 20,left: 5),
+                margin: EdgeInsets.only(bottom: 20, left: 5),
                 child: Row(
                   children: [
                     CustomTextButton(
                       list: [
                         Text(
                           'NEXT',
-                          style: kPrimaryTextStyle.copyWith(
-                            color: kWhite
-                          ),
+                          style: kPrimaryTextStyle.copyWith(color: kWhite),
                         )
                       ],
                       elevation: 3,
@@ -210,5 +218,3 @@ class _CreateGroupState extends State<CreateGroup> {
     );
   }
 }
-
-

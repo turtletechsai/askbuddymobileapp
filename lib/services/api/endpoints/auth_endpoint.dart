@@ -11,16 +11,21 @@ class AuthEndpoints {
   AuthEndpoints._();
 
   static get getFeedDataEndpoint =>
-      AuthEndpoint("/v1/feed/get", Method.get);
+      AuthEndpoint(":7000/v1/feed/get", Method.get);
 
   static get getExploreDataEndpoint =>
-      AuthEndpoint("/v1/feed/explore", Method.get);
+      AuthEndpoint(":7000/v1/feed/explore", Method.get);
 
   static get likePost =>
-      AuthEndpoint("/v1/feed/like-post/$postid?vote=1", Method.post);
+      AuthEndpoint(":7000/v1/feed/like-post/$postid?vote=1", Method.post);
 
   static get bookmarkPost =>
-      AuthEndpoint("/v1/feed/bookmark-post/$postid", Method.post);
+      AuthEndpoint(":7000/v1/feed/bookmark-post/$postid", Method.post);
 
+  static get getSubjectsForStudyGroups =>
+      AuthEndpoint(":4000/v1/study/get-subjects", Method.get);
+
+  static get getOnboarding =>
+      AuthEndpoint(":4000/v1/student/get-onboarding", Method.get);
 
 }

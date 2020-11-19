@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studygroups/constants.dart';
-import 'package:studygroups/widgets/custom_gridview_container.dart';
 import 'package:studygroups/widgets/custom_text_button.dart';
-import 'package:studygroups/widgets/custom_gridview.dart';
 import 'package:studygroups/widgets/post_container.dart';
 import 'package:studygroups/widgets/post_content_widgets.dart';
 import 'package:studygroups/widgets/custom_back_button.dart';
@@ -14,6 +12,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -47,40 +46,40 @@ class _ProfileState extends State<Profile> {
         SizedBox(
           height: 10,
         ),
-        CustomGridView(
-          list: [
-            GridViewContainer(
-              groupName: 'Algebra Warriors',
-              memberCount: 11,
-              color: kOrange,
-            ),
-            GridViewContainer(
-              groupName: 'Biology lovers',
-              memberCount: 2,
-              color: Colors.pinkAccent,
-            ),
-            GridViewContainer(
-              groupName: 'Rocket people',
-              memberCount: 35,
-              color: Colors.lightBlueAccent,
-            ),
-            GridViewContainer(
-              groupName: 'Raised by wolves',
-              memberCount: 9,
-              color: Colors.lightGreen,
-            ),
-            GridViewContainer(
-              groupName: 'Chem solutions',
-              memberCount: 7,
-              color: Colors.redAccent,
-            ),
-            GridViewContainer(
-              groupName: 'Solve easy',
-              memberCount: 80,
-              color: Colors.purple,
-            ),
-          ],
-        ),
+        // CustomGridView(
+        //   list: [
+        //     GridViewContainer(
+        //       groupName: 'Algebra Warriors',
+        //       memberCount: 11,
+        //       color: kOrange,
+        //     ),
+        //     GridViewContainer(
+        //       groupName: 'Biology lovers',
+        //       memberCount: 2,
+        //       color: Colors.pinkAccent,
+        //     ),
+        //     GridViewContainer(
+        //       groupName: 'Rocket people',
+        //       memberCount: 35,
+        //       color: Colors.lightBlueAccent,
+        //     ),
+        //     GridViewContainer(
+        //       groupName: 'Raised by wolves',
+        //       memberCount: 9,
+        //       color: Colors.lightGreen,
+        //     ),
+        //     GridViewContainer(
+        //       groupName: 'Chem solutions',
+        //       memberCount: 7,
+        //       color: Colors.redAccent,
+        //     ),
+        //     GridViewContainer(
+        //       groupName: 'Solve easy',
+        //       memberCount: 80,
+        //       color: Colors.purple,
+        //     ),
+        //   ],
+        // ),
         kSizedBox,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

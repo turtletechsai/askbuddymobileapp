@@ -372,3 +372,177 @@ class DataBookmark {
     "success": success,
   };
 }
+
+
+
+class GetSubjectsForStudyGroupsResponseBodyData {
+  GetSubjectsForStudyGroupsResponseBodyData ({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  List<GetSubjectsForStudyGroupsResponseBodyDataDatum> data;
+
+  factory GetSubjectsForStudyGroupsResponseBodyData.fromJson(Map<String, dynamic> json) => GetSubjectsForStudyGroupsResponseBodyData(
+    meta: Meta.fromJson(json["meta"]),
+    data: List<GetSubjectsForStudyGroupsResponseBodyDataDatum>.from(json["data"].map((x) => GetSubjectsForStudyGroupsResponseBodyDataDatum.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
+}
+
+class GetSubjectsForStudyGroupsResponseBodyDataDatum {
+  GetSubjectsForStudyGroupsResponseBodyDataDatum({
+    this.id,
+    this.code,
+    this.display,
+    this.icon,
+    this.isActive,
+    this.priority,
+  });
+
+  int id;
+  String code;
+  String display;
+  String icon;
+  int isActive;
+  int priority;
+
+  factory GetSubjectsForStudyGroupsResponseBodyDataDatum.fromJson(Map<String, dynamic> json) => GetSubjectsForStudyGroupsResponseBodyDataDatum(
+    id: json["id"],
+    code: json["code"],
+    display: json["display"],
+    icon: json["icon"],
+    isActive: json["is_active"],
+    priority: json["priority"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "code": code,
+    "display": display,
+    "icon": icon,
+    "is_active": isActive,
+    "priority": priority,
+  };
+}
+
+class GetOnboardingData {
+  GetOnboardingData({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  List<GetOnboardingDataDatum> data;
+
+  factory GetOnboardingData.fromJson(Map<String, dynamic> json) => GetOnboardingData(
+    meta: Meta.fromJson(json["meta"]),
+    data: List<GetOnboardingDataDatum>.from(json["data"].map((x) => GetOnboardingDataDatum.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
+}
+
+class GetOnboardingDataDatum {
+  GetOnboardingDataDatum({
+    this.name,
+    this.type,
+    this.uiType,
+    this.title,
+    this.submitWidgetEndpoint,
+    this.submitKey,
+    this.data,
+  });
+
+  String name;
+  String type;
+  String uiType;
+  String title;
+  String submitWidgetEndpoint;
+  String submitKey;
+  List<DatumDatum> data;
+
+  factory GetOnboardingDataDatum.fromJson(Map<String, dynamic> json) => GetOnboardingDataDatum(
+    name: json["name"],
+    type: json["type"],
+    uiType: json["ui_type"],
+    title: json["title"],
+    submitWidgetEndpoint: json["submit_widget_endpoint"],
+    submitKey: json["submit_key"],
+    data: List<DatumDatum>.from(json["data"].map((x) => DatumDatum.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "type": type,
+    "ui_type": uiType,
+    "title": title,
+    "submit_widget_endpoint": submitWidgetEndpoint,
+    "submit_key": submitKey,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
+}
+
+class GetOnboardingDataDatumDatum {
+  GetOnboardingDataDatumDatum({
+    this.id,
+    this.code,
+    this.display,
+    this.priority,
+    this.isSelected,
+    this.language,
+    this.isActive,
+    this.icons,
+    this.languageDisplay,
+    this.languageOrder,
+  });
+
+  int id;
+  dynamic code;
+  String display;
+  int priority;
+  bool isSelected;
+  String language;
+  int isActive;
+  String icons;
+  String languageDisplay;
+  int languageOrder;
+
+  factory GetOnboardingDataDatumDatum.fromJson(Map<String, dynamic> json) => GetOnboardingDataDatumDatum(
+    id: json["id"],
+    code: json["code"],
+    display: json["display"] == null ? null : json["display"],
+    priority: json["priority"] == null ? null : json["priority"],
+    isSelected: json["is_selected"],
+    language: json["language"] == null ? null : json["language"],
+    isActive: json["is_active"] == null ? null : json["is_active"],
+    icons: json["icons"] == null ? null : json["icons"],
+    languageDisplay: json["language_display"] == null ? null : json["language_display"],
+    languageOrder: json["language_order"] == null ? null : json["language_order"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "code": code,
+    "display": display == null ? null : display,
+    "priority": priority == null ? null : priority,
+    "is_selected": isSelected,
+    "language": language == null ? null : language,
+    "is_active": isActive == null ? null : isActive,
+    "icons": icons == null ? null : icons,
+    "language_display": languageDisplay == null ? null : languageDisplay,
+    "language_order": languageOrder == null ? null : languageOrder,
+  };
+}
+
+
+
+

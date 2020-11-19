@@ -3,8 +3,7 @@ import 'package:studygroups/constants.dart';
 
 class SubjectContainer extends StatelessWidget {
   final Color containerColor,iconBgColor;
-  final IconData icon;
-  final String text;
+  final String text,icon;
   final Function onTap;
 
 
@@ -26,8 +25,8 @@ class SubjectContainer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundColor: iconBgColor,
-              child: Icon(icon,color: kWhite),
+              backgroundColor: Colors.transparent,
+              backgroundImage: NetworkImage(icon),
             ),
             Text(text,style: kPrimaryTextStyle.copyWith(
               color: kBlack,fontWeight: FontWeight.w500,fontSize: 12

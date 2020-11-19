@@ -15,7 +15,7 @@ import 'pages/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  String baseUrl = "http://18.222.164.63:7000";
+  String baseUrl = "http://18.222.164.63";
 
   Provider.debugCheckInvalidValueType = null;
   NetworkManager networkManager = await getAuthNetworkManager(baseUrl);

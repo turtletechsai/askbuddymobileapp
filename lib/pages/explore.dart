@@ -10,7 +10,7 @@ import 'package:studygroups/widgets/explore_custom_gridview_container.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
 
 class Explore extends StatefulWidget {
   @override
@@ -24,6 +24,7 @@ class _ExploreState extends State<Explore> {
   Future<GetExplorePageResponseData> getExploreData() async {
     final adminAPI = Provider.of<NetworkRepository>(context, listen: false);
     GetExplorePageResponseData responseModel = await adminAPI.getExploreData();
+    print(responseModel);
     return responseModel;
   }
 
@@ -32,6 +33,7 @@ class _ExploreState extends State<Explore> {
     _future = getExploreData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<GetExplorePageResponseData>(
@@ -41,51 +43,51 @@ class _ExploreState extends State<Explore> {
             List<Widget> widgets = List();
 
             widgets.add(SizedBox(height: 15),);
-            widgets.add(Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              height: 120,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SubjectContainer(icon: Icons.add,
-                    containerColor: selectedSub == 'Maths' ? Colors.purple[100] : Colors.transparent,
-                    iconBgColor: Colors.purple,
-                    text: 'All',
-                    onTap: (){
-                      selectedSub = 'Maths';
-                      setState(() {
-                      });
-                    },),
-                  SubjectContainer(icon: Icons.local_fire_department,
-                    containerColor: selectedSub == 'Physics' ? Colors.pink[100] : Colors.transparent,
-                    iconBgColor: Colors.pink,
-                    text: 'Physics',
-                    onTap: (){
-                      selectedSub = 'Physics';
-                      setState(() {
-                      });
-                    },),
-                  SubjectContainer(icon: Icons.bookmark_border,
-                    containerColor: selectedSub == 'Chemistry' ? Colors.blue[100] : Colors.transparent,
-                    iconBgColor: Colors.blue,
-                    text: 'Chemistry',
-                    onTap: (){
-                      selectedSub = 'Chemistry';
-                      setState(() {
-                      });
-                    },),
-                  SubjectContainer(icon: Icons.share,
-                    containerColor: selectedSub == 'Biology' ? Colors.green[100] : Colors.transparent,
-                    iconBgColor: Colors.green,
-                    text: 'Biology',
-                    onTap: (){
-                      selectedSub = 'Biology';
-                      setState(() {
-                      });
-                    },),
-                ],
-              ),
-            ),);
+            // widgets.add(Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 15),
+            //   height: 120,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       SubjectContainer(icon: Icons.add,
+            //         containerColor: selectedSub == 'Maths' ? Colors.purple[100] : Colors.transparent,
+            //         iconBgColor: Colors.purple,
+            //         text: 'All',
+            //         onTap: (){
+            //           selectedSub = 'Maths';
+            //           setState(() {
+            //           });
+            //         },),
+            //       SubjectContainer(icon: Icons.local_fire_department,
+            //         containerColor: selectedSub == 'Physics' ? Colors.pink[100] : Colors.transparent,
+            //         iconBgColor: Colors.pink,
+            //         text: 'Physics',
+            //         onTap: (){
+            //           selectedSub = 'Physics';
+            //           setState(() {
+            //           });
+            //         },),
+            //       SubjectContainer(icon: Icons.bookmark_border,
+            //         containerColor: selectedSub == 'Chemistry' ? Colors.blue[100] : Colors.transparent,
+            //         iconBgColor: Colors.blue,
+            //         text: 'Chemistry',
+            //         onTap: (){
+            //           selectedSub = 'Chemistry';
+            //           setState(() {
+            //           });
+            //         },),
+            //       SubjectContainer(icon: Icons.share,
+            //         containerColor: selectedSub == 'Biology' ? Colors.green[100] : Colors.transparent,
+            //         iconBgColor: Colors.green,
+            //         text: 'Biology',
+            //         onTap: (){
+            //           selectedSub = 'Biology';
+            //           setState(() {
+            //           });
+            //         },),
+            //     ],
+            //   ),
+            // ),);
             widgets.add(Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               margin: EdgeInsets.only(left: 20,right: 20,top: 16),

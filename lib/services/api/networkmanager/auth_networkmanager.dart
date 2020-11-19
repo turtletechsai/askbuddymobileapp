@@ -19,7 +19,7 @@ class NetworkManager {
 
   NetworkManager(this._client, this._deviceStore);
 
-  @override
+
   Future<Result> getFeedDataAPI() async {
     AuthEndpoint endpoint = AuthEndpoints.getFeedDataEndpoint;
 
@@ -36,7 +36,7 @@ class NetworkManager {
     return result;
   }
 
-  @override
+
   Future<Result> getExploreDataAPI() async {
     AuthEndpoint endpoint = AuthEndpoints.getExploreDataEndpoint;
 
@@ -53,7 +53,7 @@ class NetworkManager {
     return result;
   }
 
-  @override
+
   Future<Result> likePostAPI(LikePostRequestBody requestBody) async {
     AuthEndpoint endpoint = AuthEndpoints.likePost;
     endpoint.replaceInPath(postid, requestBody.id.toString());
@@ -71,7 +71,7 @@ class NetworkManager {
     return result;
   }
 
-  @override
+
   Future<Result> bookmarkPostAPI(BookmarkPostRequestBody requestBody) async {
     AuthEndpoint endpoint = AuthEndpoints.bookmarkPost;
     endpoint.replaceInPath(postid, requestBody.id.toString());
@@ -85,6 +85,39 @@ class NetworkManager {
       BookmarkPostResponseBody.fromJson(json.decode(result.data.toString()));
 
       return Success<BookmarkPostResponseBody>(bookmarkPostResponseBody);
+    }
+    return result;
+  }
+
+
+  Future<Result> getSubjectsForStudyGroupsAPI() async {
+    AuthEndpoint endpoint = AuthEndpoints.getSubjectsForStudyGroups;
+
+    Result result = await _client.call(
+      endpoint,
+    );
+
+    if (result is Success) {
+      GetSubjectsForStudyGroupsResponseBodyData getSubjectsForStudyGroupsResponseBodyData =
+      GetSubjectsForStudyGroupsResponseBodyData.fromJson(json.decode(result.data.toString()));
+
+      return Success<GetSubjectsForStudyGroupsResponseBodyData>(getSubjectsForStudyGroupsResponseBodyData);
+    }
+    return result;
+  }
+
+  Future<Result> getOnboardingAPI() async {
+    AuthEndpoint endpoint = AuthEndpoints.getOnboarding;
+
+    Result result = await _client.call(
+      endpoint,
+    );
+
+    if (result is Success) {
+      GetOnboardingData getOnboardingData =
+      GetOnboardingData.fromJson(json.decode(result.data.toString()));
+
+      return Success<GetOnboardingData>(getOnboardingData);
     }
     return result;
   }
