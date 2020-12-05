@@ -6,7 +6,8 @@ class ShareThoughtContainer extends StatelessWidget {
   final String title;
   final String subtitle;
   final Function onTap;
-  ShareThoughtContainer({this.title,this.subtitle,this.imgUrl,this.onTap});
+  final Color color;
+  ShareThoughtContainer({this.title,this.subtitle,this.imgUrl,this.onTap,this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,12 @@ class ShareThoughtContainer extends StatelessWidget {
           ),
           title: Text(title,
               style: TextStyle(
-                  color: kMainThemeColor,
+                  color: color,
                   fontWeight: FontWeight.w500
               )),
           subtitle: Text(subtitle,
               style: TextStyle(
-                  color: kMainThemeColor,
+                  color: color,
                   fontWeight: FontWeight.w300
               )),
         ),

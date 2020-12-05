@@ -543,6 +543,178 @@ class GetOnboardingDataDatumDatum {
   };
 }
 
+class CreateGroupResponseBody {
+  CreateGroupResponseBody({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  bool data;
+
+  factory CreateGroupResponseBody.fromJson(Map<String, dynamic> json) => CreateGroupResponseBody(
+    meta: Meta.fromJson(json["meta"]),
+    data: json["data"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": data,
+  };
+}
+
+class UpdateUsernameResponseBody {
+  UpdateUsernameResponseBody({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  UpdateUsernameResponseBodyData data;
+
+  factory UpdateUsernameResponseBody.fromJson(Map<String, dynamic> json) => UpdateUsernameResponseBody(
+    meta: Meta.fromJson(json["meta"]),
+    data: UpdateUsernameResponseBodyData.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": data.toJson(),
+  };
+}
+
+class UpdateUsernameResponseBodyData {
+  UpdateUsernameResponseBodyData({
+    this.studentId,
+    this.studentUsername,
+    this.extras,
+  });
+
+  int studentId;
+  String studentUsername;
+  Extras extras;
+
+  factory UpdateUsernameResponseBodyData.fromJson(Map<String, dynamic> json) => UpdateUsernameResponseBodyData(
+    studentId: json["student_id"],
+    studentUsername: json["student_username"],
+    extras: Extras.fromJson(json["extras"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "student_id": studentId,
+    "student_username": studentUsername,
+    "extras": extras.toJson(),
+  };
+}
+
+class Extras {
+  Extras({
+    this.redirect,
+  });
+
+  Redirect redirect;
+
+  factory Extras.fromJson(Map<String, dynamic> json) => Extras(
+    redirect: Redirect.fromJson(json["redirect"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "redirect": redirect.toJson(),
+  };
+}
+
+class Redirect {
+  Redirect();
+
+  factory Redirect.fromJson(Map<String, dynamic> json) => Redirect(
+  );
+
+  Map<String, dynamic> toJson() => {
+  };
+}
+
+class OnboardingSelectionResponseBody {
+  OnboardingSelectionResponseBody({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  bool data;
+
+  factory OnboardingSelectionResponseBody.fromJson(Map<String, dynamic> json) => OnboardingSelectionResponseBody(
+    meta: Meta.fromJson(json["meta"]),
+    data: json["data"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": data,
+  };
+}
+
+class GetCommentsResponseData {
+  GetCommentsResponseData({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  List<GetCommentsResponseDataDatum> data;
+
+  factory GetCommentsResponseData.fromJson(Map<String, dynamic> json) => GetCommentsResponseData(
+    meta: Meta.fromJson(json["meta"]),
+    data: List<GetCommentsResponseDataDatum>.from(json["data"].map((x) => GetCommentsResponseDataDatum.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "meta": meta.toJson(),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
+}
+
+class GetCommentsResponseDataDatum {
+  GetCommentsResponseDataDatum({
+    this.id,
+    this.resourceType,
+    this.comment,
+    this.author,
+    this.avatar,
+    this.timestamp,
+  });
+
+  int id;
+  String resourceType;
+  String comment;
+  String author;
+  String avatar;
+  DateTime timestamp;
+
+  factory GetCommentsResponseDataDatum.fromJson(Map<String, dynamic> json) => GetCommentsResponseDataDatum(
+    id: json["id"],
+    resourceType: json["resource_type"],
+    comment: json["comment"],
+    author: json["author"],
+    avatar: json["avatar"],
+    timestamp: DateTime.parse(json["timestamp"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "resource_type": resourceType,
+    "comment": comment,
+    "author": author,
+    "avatar": avatar,
+    "timestamp": "${timestamp.year.toString().padLeft(4, '0')}-${timestamp.month.toString().padLeft(2, '0')}-${timestamp.day.toString().padLeft(2, '0')}",
+  };
+}
+
+
+
+
+
+
+
 
 
 

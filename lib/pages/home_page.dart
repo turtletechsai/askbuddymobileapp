@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 elevation: 10,)
               ],
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w500),
               ),
             ),
-            SizedBox(height: 60),
+            SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -97,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            SizedBox(height: 10),
             Expanded(
               child: screen(),
             )

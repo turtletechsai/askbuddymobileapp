@@ -122,8 +122,78 @@ class NetworkManager {
     return result;
   }
 
+  Future<Result> createGroupAPI(CreateStudyGroupRequestBody requestBody) async {
+    AuthEndpoint endpoint = AuthEndpoints.createGroup;
+    endpoint.addBody(requestBody);
+
+    Result result = await _client.call(
+      endpoint,
+      formData: true
+    );
 
 
+    if (result is Success) {
+      CreateGroupResponseBody createGroupResponseBody =
+      CreateGroupResponseBody.fromJson(json.decode(result.data.toString()));
+
+      return Success<CreateGroupResponseBody>(createGroupResponseBody);
+    }
+    return result;
+  }
+
+  Future<Result> updateUsernameAPI(UpdateUsernameRequestBody requestBody) async {
+    AuthEndpoint endpoint = AuthEndpoints.updateUsername;
+    endpoint.addBody(requestBody);
+
+    Result result = await _client.call(
+        endpoint,
+        formData: true
+    );
+
+    if (result is Success) {
+      UpdateUsernameResponseBody updateUsernameResponseBody =
+      UpdateUsernameResponseBody.fromJson(json.decode(result.data.toString()));
+
+      return Success<UpdateUsernameResponseBody>(updateUsernameResponseBody);
+    }
+    return result;
+  }
+
+  Future<Result> updateOnboardingSelectionAPI(OnboardingSelectionRequest requestBody) async {
+    AuthEndpoint endpoint = AuthEndpoints.updateOnboardingSelection;
+    endpoint.addBody(requestBody);
+
+    Result result = await _client.call(
+        endpoint,
+        formData: true
+    );
+
+
+    if (result is Success) {
+      OnboardingSelectionResponseBody onboardingSelectionResponseBody =
+      OnboardingSelectionResponseBody.fromJson(json.decode(result.data.toString()));
+
+      return Success<OnboardingSelectionResponseBody>(onboardingSelectionResponseBody);
+    }
+    return result;
+  }
+
+  Future<Result> getCommentsAPI(int post) async {
+    AuthEndpoint endpoint = AuthEndpoints.getComments;
+    endpoint.replaceInPath(postid, post.toString());
+
+    Result result = await _client.call(
+      endpoint,
+    );
+
+    if (result is Success) {
+      GetCommentsResponseData getCommentsResponseData =
+      GetCommentsResponseData.fromJson(json.decode(result.data.toString()));
+
+      return Success<GetCommentsResponseData>(getCommentsResponseData);
+    }
+    return result;
+  }
 
 }
 

@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studygroups/models/request.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/custom_back_button.dart';
@@ -14,9 +16,13 @@ class CreateGroup extends StatefulWidget {
 }
 
 class _CreateGroupState extends State<CreateGroup> {
+  String groupName,groupDes;
   var selectedSub = 'Physics';
   bool switchValue = true;
+  TextEditingController groupNameTextEditingController = TextEditingController();
+  TextEditingController groupDesTextEditingController = TextEditingController();
   Future _future;
+  Future _future1;
 
   Future<GetSubjectsForStudyGroupsResponseBodyData>
       getSubjectsForStudyGroupsData() async {
@@ -24,6 +30,14 @@ class _CreateGroupState extends State<CreateGroup> {
     GetSubjectsForStudyGroupsResponseBodyData responseModel =
         await adminAPI.getSubjectsForStudyGroups();
     print(responseModel);
+    return responseModel;
+  }
+
+  Future<CreateGroupResponseBody>
+  createGroup(CreateStudyGroupRequestBody requestBody) async {
+    final adminAPI = Provider.of<NetworkRepository>(context, listen: false);
+    CreateGroupResponseBody  responseModel =
+    await adminAPI.createGroup(requestBody);
     return responseModel;
   }
 
@@ -73,6 +87,7 @@ class _CreateGroupState extends State<CreateGroup> {
                 decoration: kBoxDecoration.copyWith(
                     borderRadius: BorderRadius.circular(20)),
                 child: TextField(
+                  controller: groupNameTextEditingController,
                   cursorColor: kMainThemeColor,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(borderSide: BorderSide.none),
@@ -151,6 +166,7 @@ class _CreateGroupState extends State<CreateGroup> {
                 decoration: kBoxDecoration.copyWith(
                     borderRadius: BorderRadius.circular(20)),
                 child: TextField(
+                  controller: groupDesTextEditingController,
                   cursorColor: kMainThemeColor,
                   decoration: InputDecoration(
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
@@ -207,6 +223,30 @@ class _CreateGroupState extends State<CreateGroup> {
                       elevation: 3,
                       height: 38,
                       color: kMainThemeColor,
+                      onPressed: ()async{
+                        String groupName = groupNameTextEditingController.text;
+                        String groupDes = groupDesTextEditingController.text;
+                        String privacy = "";
+                        if(switchValue == true){
+                          privacy = "PUBLIC";
+                        }else{
+                          privacy = "PRIVATE";
+                        }
+                        CreateStudyGroupRequestBody requestBody = CreateStudyGroupRequestBody(
+                            groupName: groupName,
+                            groupDescription: groupDes,
+                            groupSubject: selectedSub,
+                            privacy: privacy
+                        );
+
+                        CreateGroupResponseBody response = await createGroup(requestBody);
+                        if(response.meta.success){
+                          Navigator.pop(context);
+                        }else{
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Error !')));
+                        }
+
+                      },
                     ),
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studygroups/constants.dart';
+import 'package:studygroups/models/request.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/select_class_container.dart';
@@ -18,6 +19,13 @@ class _SelectClassState extends State<SelectClass> {
   Future<GetOnboardingData> getOnboardingData() async {
     final adminAPI = Provider.of<NetworkRepository>(context, listen: false);
     GetOnboardingData responseModel = await adminAPI.getOnboarding();
+    print(responseModel);
+    return responseModel;
+  }
+
+  Future<OnboardingSelectionResponseBody> onboardingSelect(OnboardingSelectionRequest requestBody) async {
+    final adminAPI = Provider.of<NetworkRepository>(context, listen: false);
+    OnboardingSelectionResponseBody responseModel = await adminAPI.onboardingSelection(requestBody);
     print(responseModel);
     return responseModel;
   }
@@ -88,8 +96,17 @@ class _SelectClassState extends State<SelectClass> {
                 ),
                 onPressed: selectedClass == null
                     ? null
-                    : () {
-                        Navigator.pushNamed(context, '/LearnSearch');
+                    : () async {
+                        OnboardingSelectionRequest request = OnboardingSelectionRequest(
+                          onboardingSelectionRequestClass: selectedClass
+                        );
+
+                        OnboardingSelectionResponseBody responseBody = await onboardingSelect(request);
+                        if(responseBody.meta.success){
+                          Navigator.pop(context);
+                        }else{
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Error !')));
+                        }
                       },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(26),

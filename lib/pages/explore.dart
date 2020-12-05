@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studygroups/models/response.dart';
 import 'package:studygroups/pages/chat_screen.dart';
+import 'package:studygroups/pages/groups_related/group_home.dart';
 import 'package:studygroups/services/api/repository/auth_repository.dart';
 import 'package:studygroups/widgets/custom_gridview.dart';
 import 'package:studygroups/widgets/custom_text_button.dart';
@@ -127,7 +128,7 @@ class _ExploreState extends State<Explore> {
                         upperTitle2: 'members',
                         textColor: datum.data[index].textColor,
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(channel: IOWebSocketChannel.connect('wss://socket.biviolin.com/'),)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => GroupHome(groupName: datum.data[index].title,)));
                         },
                       );
                     })

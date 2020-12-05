@@ -45,4 +45,27 @@ class NetworkRepository with ChangeNotifier {
     if (apiResult is Error) throw apiResult.error;
   }
 
+  Future<CreateGroupResponseBody> createGroup(CreateStudyGroupRequestBody requestBody) async {
+    Result apiResult = await apiClient.createGroupAPI(requestBody);
+    if (apiResult is Success) return apiResult.data;
+    if (apiResult is Error) throw apiResult.error;
+  }
+
+  Future<UpdateUsernameResponseBody> updateUsername(UpdateUsernameRequestBody requestBody) async {
+    Result apiResult = await apiClient.updateUsernameAPI(requestBody);
+    if (apiResult is Success) return apiResult.data;
+    if (apiResult is Error) throw apiResult.error;
+  }
+
+  Future<OnboardingSelectionResponseBody> onboardingSelection(OnboardingSelectionRequest requestBody) async {
+    Result apiResult = await apiClient.updateOnboardingSelectionAPI(requestBody);
+    if (apiResult is Success) return apiResult.data;
+    if (apiResult is Error) throw apiResult.error;
+  }
+
+  Future<GetCommentsResponseData> getComments(int post) async {
+    Result apiResult = await apiClient.getCommentsAPI(post);
+    if (apiResult is Success) return apiResult.data;
+    if (apiResult is Error) throw apiResult.error;
+  }
 }

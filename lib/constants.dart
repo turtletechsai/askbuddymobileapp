@@ -17,6 +17,7 @@ const Color kWhite = Colors.white;
 const Color kBlack = Colors.black;
 const Color kSecondaryColor = Color(0xffe4ddfb);
 const Color kOrange = Color(0xffffb64b);
+const Color kDarkOrange = Color(0xffea532c);
 const Color kGrey = Colors.grey;
 Color kGreyLite = Colors.grey[400];
 const Color kBlue = Color(0xff029cf5);

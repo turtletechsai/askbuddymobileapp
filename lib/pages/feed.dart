@@ -47,6 +47,7 @@ class _FeedState extends State<Feed> {
               onTap: () {
                 Navigator.pushNamed(context, '/PostNewThought');
               },
+              color: kMainThemeColor,
             ));
 
             for (GetFeedPageResponseDataDatum datum in data.data.data) {
@@ -75,6 +76,9 @@ class _FeedState extends State<Feed> {
                         ),
                         datum.data[index].imageUrl == null ? Container() :PostPhoto(
                           url:datum.data[index].imageUrl,
+                        ),
+                        datum.data[index].videoUrl == null ? Container() : PostVideo(
+                          videoUrl: datum.data[index].videoUrl,
                         )
                       ],
                       userImgUrl:

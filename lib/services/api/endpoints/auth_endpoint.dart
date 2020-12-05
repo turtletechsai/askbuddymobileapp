@@ -28,4 +28,16 @@ class AuthEndpoints {
   static get getOnboarding =>
       AuthEndpoint(":4000/v1/student/get-onboarding", Method.get);
 
+  static get createGroup =>
+      AuthEndpoint(":4000/v1/study/create-group", Method.post);
+
+  static get updateUsername =>
+      AuthEndpoint(":4000/v1/login/update-username", Method.post);
+
+  static get updateOnboardingSelection =>
+      AuthEndpoint(":4000/v1/student/set-student-prefrences", Method.post);
+
+  static get getComments =>
+      AuthEndpoint(":4000/v1/feed/get-comments/$postid", Method.get);
+
 }

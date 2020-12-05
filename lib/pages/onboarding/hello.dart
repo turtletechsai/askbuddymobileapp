@@ -1,8 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studygroups/constants.dart';
+import 'package:studygroups/models/request.dart';
+import 'package:studygroups/models/response.dart';
+import 'package:studygroups/services/api/repository/auth_repository.dart';
 
-class Hello extends StatelessWidget {
+
+class Hello extends StatefulWidget {
+  @override
+  _HelloState createState() => _HelloState();
+}
+
+class _HelloState extends State<Hello> {
+  final TextEditingController controller = TextEditingController();
+
+  Future<UpdateUsernameResponseBody>
+  updateUsername(UpdateUsernameRequestBody requestBody) async {
+    final adminAPI = Provider.of<NetworkRepository>(context, listen: false);
+    UpdateUsernameResponseBody responseModel =
+    await adminAPI.updateUsername(requestBody);
+    return responseModel;
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -44,6 +64,7 @@ class Hello extends StatelessWidget {
                     color: Colors.white24
                   ),
                   child: TextField(
+                    controller: controller,
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(
                         borderSide: BorderSide.none
@@ -72,8 +93,15 @@ class Hello extends StatelessWidget {
                 fontSize: 18,
                 color: Color(0xff004a43)
               ),),
-              onPressed: (){
-                Navigator.pushNamed(context, '/SelectClass');
+              onPressed: ()async{
+                UpdateUsernameRequestBody requestBody = UpdateUsernameRequestBody(username: controller.text);
+                UpdateUsernameResponseBody response = await updateUsername(requestBody);
+
+                if(response.meta.success){
+                  Navigator.pushNamed(context, '/SelectClass');
+                }else{
+                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Error !')));
+                }
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
